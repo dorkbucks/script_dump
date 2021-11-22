@@ -1,0 +1,8 @@
+{
+  "name": "script_dump",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "stellar-sdk": "^9.1.0"
+  }
+}
