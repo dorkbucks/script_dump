@@ -67,6 +67,8 @@ txn = txn
   .addMemo(memo)
   .build()
 
+prompt.open()
+prompt.char('🔑')
 const secret = await prompt('Enter distributor secret key:')
 const signer = Keypair.fromSecret(secret)
 txn.sign(signer)
