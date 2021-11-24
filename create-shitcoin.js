@@ -34,6 +34,9 @@ const testnet = process.env.NODE_ENV === 'development'
 const NETWORK = testnet ? 'TESTNET' : 'PUBLIC'
 const networkPassphrase = Networks[NETWORK]
 const HORIZON_URL = `https://horizon${testnet ? '-testnet' : ''}.stellar.org`
+const EXPERT_BASE_URL = `https://stellar.expert/explorer/${testnet ? 'testnet' : 'public'}/asset`
+const EXPERT_ASSET_URL = `${EXPERT_BASE_URL}/${ASSET_CODE}-${issuer.publicKey()}`
+const HORIZON_ASSET_URL = `${HORIZON_URL}/assets?asset_code=${ASSET_CODE}&asset_issuer=${issuer.publicKey()}`
 const server = new Server(HORIZON_URL)
 const fee = (await server.fetchBaseFee()) || BASE_FEE
 const txnOpts = {
@@ -83,6 +86,8 @@ txn.sign(source, issuer, distributor)
 try {
   await server.submitTransaction(txn)
   console.log(`Your shitcoin ${ASSET_CODE} is ready`)
+  console.log(EXPERT_ASSET_URL)
+  console.log(HORIZON_ASSET_URL)
 } catch (e) {
   console.error(e?.response?.data)
 }
